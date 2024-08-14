@@ -1,0 +1,104 @@
+#footer {
+  background-color: var(--cultured);
+}
+
+#footer > div {
+  grid-template-areas: "logo logo logo . . company company help help newsletter newsletter newsletter";
+}
+
+#footer .logo {
+  grid-area: logo;
+  margin-bottom: 18px;
+}
+
+#footer .logo-container {
+  color: black;
+  margin-bottom: 18px;
+}
+
+#footer .logo-container .mb0 {
+  margin-bottom: 0;
+}
+
+#footer .company {
+  grid-area: company;
+}
+
+#footer .link {
+  color: black;
+  display: block;
+  cursor: pointer;
+  margin-bottom: 12px;
+  text-decoration: none;
+}
+
+#footer .link:hover {
+  text-decoration: underline;
+}
+
+#footer .help {
+  grid-area: help;
+}
+
+#footer .newsletter {
+  grid-area: newsletter;
+}
+
+#footer .newsletter-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#footer .newsletter-form input {
+  width: 100%;
+  margin-right: 8px;
+}
+
+@media screen and (max-width: 1200px) {
+  #footer > div {
+    grid-template-rows: auto auto;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-areas:
+      "logo logo logo logo logo logo logo logo logo logo logo logo"
+      "company company company company help help help help newsletter newsletter newsletter newsletter";
+  }
+
+  #footer .logo-container {
+    margin-bottom: 12px;
+  }
+
+  #footer .newsletter-form {
+    gap: 12px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #footer .newsletter-form input {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #footer > div {
+    grid-template-rows: auto auto auto;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "logo logo logo logo"
+      "company company help help"
+      "newsletter newsletter newsletter newsletter";
+  }
+
+  #footer .newsletter {
+    margin-top: 24px;
+  }
+
+  #footer .newsletter-form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}

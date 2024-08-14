@@ -1,0 +1,26 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg"	x="0px" y="0px"	viewBox="0 0 500 500"	style="enable-background:new 0 0 500 500;"	xml:space="preserve" >
+	<rect x="0" y="0" width="500" height="500" stroke="#000" fill="none" stroke-width="1" />
+	<g id="svg-icon-home" stroke="#000" stroke-width="15" fill="none">
+		<circle cx="200" cy="100" r="45" />
+		<path d="M 160,150
+				C 120,170 90,180 80,210
+				L 45,330
+				A 10,20 20 0 0 90,330
+				L 120,230
+				L 120,370
+				M 120,370
+				Q 120,393 160,392
+				M 155,392
+				L 260,392
+				Q 290,390, 290,360
+				L 290,240
+				L 345,300
+				Q 365,312, 380,295
+				L 420,250
+				A 10,30 40 0 0 380,240
+				L 365,258
+				L 300,180
+				Q 280,160 245,145
+				"/>
+	</g>
+</svg>

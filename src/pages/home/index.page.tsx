@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <meta name="description" content={"Waleed Iqbal | Home"} />
+        <meta name="description" content={"News Aggregator | Home"} />
         <title>
           {`${
             process.env.NEXT_PUBLIC_ENV_NAME === "development" ? "Test -" : ""
@@ -41,7 +41,7 @@ export default function Home() {
       <div className="home-container horizontal-padding">
         <section className="home-hero">
           <br />
-          <h1 className="hero-heading">Home page</h1>
+          <h1 className="hero-heading">News Aggregator - Home page</h1>
         </section>
       </div>
     </>

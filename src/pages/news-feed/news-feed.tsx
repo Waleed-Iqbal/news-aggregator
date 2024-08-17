@@ -1,5 +1,15 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { UserSettingsContext } from "../../utils/userSettings";
 
 export default function NewsFeedPage() {
-  return <h1>This is news feed page</h1>;
+  const userContext = useContext(UserSettingsContext);
+
+  return (
+    <>
+      <h1>This is news feed page</h1>
+      <pre>
+        <code>{JSON.stringify(userContext, null, 2)}</code>
+      </pre>
+    </>
+  );
 }

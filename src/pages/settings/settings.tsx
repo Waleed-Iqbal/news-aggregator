@@ -1,5 +1,15 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
+import { UserSettingsContext } from "../../utils/userSettings";
 
 export default function SettingsPage() {
-  return <h1>This is settings page</h1>;
+  const userContext = useContext(UserSettingsContext);
+
+  return (
+    <>
+      <h1>This is settings page</h1>
+      <pre>
+        <code>{JSON.stringify(userContext, null, 2)}</code>
+      </pre>
+    </>
+  );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { UserSettingsContext } from "../../utils/userSettings";
 
 export default function SettingsPage() {

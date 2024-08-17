@@ -1,11 +1,35 @@
-import React from 'react';
-import './App.scss';
+import React from "react";
+import { Navigate, useRoutes } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">Testing with react
-    </div>
-  );
+import HomePage from "./components/page-home/home-page";
+import Page from "./components/page/page";
+
+import { PageInfo } from "./scripts/content";
+import SettingsPage from "./components/page-settings/settings-page";
+
+import "./App.scss";
+
+export default function App() {
+  const routes = useRoutes([
+    {
+      path: PageInfo.home.link,
+      element: <Navigate to={PageInfo.home.title} />,
+    },
+    {
+      path: PageInfo.home.link,
+      element: (
+        <Page childComponent={HomePage} pageTitle={PageInfo.home.title} />
+      ),
+    },
+    {
+      path: PageInfo.settings.link,
+      element: (
+        <Page
+          childComponent={SettingsPage}
+          pageTitle={PageInfo.settings.title}
+        />
+      ),
+    },
+  ]);
+  return routes;
 }
-
-export default App;

@@ -8,6 +8,7 @@ export enum AppNavigationLinks {
 }
 
 export enum PageTitles {
+  default = "/",
   home = "Home",
   settings = "Settings",
   newsFeed = "News Feed",
@@ -16,7 +17,7 @@ export enum PageTitles {
 export const PageInfo: IPageInfo = {
   default: {
     title: PageTitles.home,
-    link: AppNavigationLinks.home,
+    link: AppNavigationLinks.default,
   },
   home: {
     title: PageTitles.home,

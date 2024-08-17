@@ -1,5 +1,7 @@
 import React from "react";
 
+import Navigation from "../navigation/navigation";
+
 export default function Page({ pageTitle, childComponent }) {
   document.title = pageTitle;
   const PageComponent = childComponent;
@@ -8,5 +10,10 @@ export default function Page({ pageTitle, childComponent }) {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 
-  return <PageComponent />;
+  return (
+    <>
+      <Navigation />
+      <PageComponent />
+    </>
+  );
 }

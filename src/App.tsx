@@ -13,10 +13,6 @@ export default function App() {
   const routes = useRoutes([
     {
       path: PageInfo.home.link,
-      element: <Navigate to={PageInfo.home.title} />,
-    },
-    {
-      path: PageInfo.home.link,
       element: (
         <Page childComponent={HomePage} pageTitle={PageInfo.home.title} />
       ),
@@ -29,6 +25,14 @@ export default function App() {
           pageTitle={PageInfo.settings.title}
         />
       ),
+    },
+    {
+      path: PageInfo.default.link,
+      element: <Navigate to={PageInfo.home.link} />,
+    },
+    {
+      path: "*",
+      element: <Navigate to={PageInfo.home.link} />,
     },
   ]);
   return routes;

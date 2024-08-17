@@ -63,3 +63,23 @@ code {
     padding-bottom: $value + px;
   }
 }
+
+// breakpoints
+$small-screen: 576px;
+$medium-screen: 768px;
+$large-scree: 992px;
+$xlarge-screen: 1200px;
+
+.mobile {
+  display: none;
+}
+
+@media screen and (max-width: $medium-screen) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+}

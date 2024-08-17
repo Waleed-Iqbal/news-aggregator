@@ -1,4 +1,4 @@
-import { IPageInfo } from "../interfaces";
+import { IPageInfo } from "./interfaces";
 
 export enum AppNavigationLinks {
   default = "/",

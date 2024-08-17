@@ -2,9 +2,9 @@ import React from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 
 import Page from "./components/page/page";
-import HomePage from "./pages/page-home/home-page";
-import SettingsPage from "./pages/page-settings/settings-page";
-import NewsFeedPage from "./pages/page-news-feed/news-feed-page";
+import HomePage from "./pages/home/home";
+import SettingsPage from "./pages/settings/settings";
+import NewsFeedPage from "./pages/news-feed/news-feed";
 
 import { PageInfo } from "./scripts/content";
 

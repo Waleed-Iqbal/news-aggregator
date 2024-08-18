@@ -25,8 +25,8 @@ export default function HomePage() {
   );
   const [dateFilterTo, setDateFilterTo] = useState<string>(currentDate);
   const [selectedNewsCategory, setSelectedNewsCategory] = useState<string>("");
-  const [articleAuthors, setArticleAuthors] = useState<string[]>([]);
-  const [selectedArticleAuthor, setSelectedArticleAuthor] =
+  const [articleSources, setArticleSources] = useState<string[]>([]);
+  const [selectedArticleSource, setSelectedArticleSource] =
     useState<string>("");
 
   // use these after testing
@@ -36,8 +36,8 @@ export default function HomePage() {
   const getNewsArticles = async () => {
     setIsLoading(true);
     setTotalArticles(0);
-    setArticleAuthors([]);
-    setSelectedArticleAuthor("");
+    setArticleSources([]);
+    setSelectedArticleSource("");
     // TODO: Remove
     console.log(userContext);
 
@@ -62,8 +62,8 @@ export default function HomePage() {
     setNewAPIArticles(newsAPIResponse.articles);
     setTotalArticles(newsAPIResponse.articles.length);
 
-    // get unique authors
-    setArticleAuthors([
+    // get unique sources
+    setArticleSources([
       ...new Set(
         newsAPIResponse.articles.map((item: INewsArticle) => item.author)
       ),
@@ -87,19 +87,19 @@ export default function HomePage() {
 
   const updateSelectedAuthor = (
     e: MouseEvent<HTMLInputElement>,
-    author: string
+    source: string
   ) => {
     e.stopPropagation();
-    setSelectedArticleAuthor(selectedArticleAuthor === author ? "" : author);
+    setSelectedArticleSource(selectedArticleSource === source ? "" : source);
 
     const filteredArticles: INewsArticle[] = newsAPIArticles.filter(
-      (article: INewsArticle) => article.author === author
+      (article: INewsArticle) => article.author === source
     );
 
-    // set total articles based on selected author filter
-    // if no author is selected, show all articles and update total count
+    // set total articles based on selected source filter
+    // if no source is selected, show all articles and update total count
     setTotalArticles(
-      selectedArticleAuthor === author
+      selectedArticleSource === source
         ? newsAPIArticles.length
         : filteredArticles.length
     );
@@ -163,11 +163,11 @@ export default function HomePage() {
           </p>
           {!isLoading && totalArticles > 0 && (
             <>
-              {selectedArticleAuthor.length > 0 &&
+              {selectedArticleSource.length > 0 &&
                 newsAPIArticles
                   .filter(
                     (article: INewsArticle) =>
-                      article.author === selectedArticleAuthor
+                      article.author === selectedArticleSource
                   )
                   .map((article: INewsArticle, index: number) => (
                     <NewsArticle
@@ -175,7 +175,7 @@ export default function HomePage() {
                       article={article}
                     />
                   ))}
-              {selectedArticleAuthor.length === 0 &&
+              {selectedArticleSource.length === 0 &&
                 newsAPIArticles.map((article: INewsArticle, index: number) => (
                   <NewsArticle
                     key={`${index}-${article.title}`}
@@ -211,20 +211,20 @@ export default function HomePage() {
             <h2 className="category-heading">Select source</h2>
             <div className="categories-list">
               {!isLoading &&
-                articleAuthors.length > 0 &&
-                articleAuthors.map((author: string) => (
-                  <label key={author} className="label">
+                articleSources.length > 0 &&
+                articleSources.map((source: string) => (
+                  <label key={source} className="label">
                     <input
                       type="checkbox"
-                      value={author}
+                      value={source}
                       className="checkbox"
-                      checked={selectedArticleAuthor === author}
-                      onClick={(e) => updateSelectedAuthor(e, author)}
+                      checked={selectedArticleSource === source}
+                      onClick={(e) => updateSelectedAuthor(e, source)}
                     />
-                    {author}
+                    {source}
                   </label>
                 ))}
-              {!isLoading && articleAuthors.length === 0 && (
+              {!isLoading && articleSources.length === 0 && (
                 <h3>No sources available</h3>
               )}
               {isLoading && <Loader />}

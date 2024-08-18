@@ -56,6 +56,7 @@ export default function NewsFeedPage() {
 
   useEffect(() => {
     getNewsArticles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -3,7 +3,11 @@ import { UserSettingsContext } from "../../utils/userSettings";
 
 import { NewsArticle } from "../../components/news-article/news-article";
 
-import { INewsAPIResponse, INewsArticle } from "../../utils/interfaces";
+import {
+  IAPIError,
+  INewsArticle,
+  INewsAPIResponse,
+} from "../../utils/interfaces";
 import { availableCategories } from "../../utils/content";
 
 import ICON_MAGNIFYING_GLASS from "../../images/magnifier.svg";
@@ -19,6 +23,10 @@ export default function HomePage() {
     (userContext && userContext.userSettings.pageSize) || 20;
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [APIError, setAPIError] = useState<IAPIError>({
+    isFailed: false,
+    message: "",
+  });
   const [searchText, setSearchText] = useState<string>("");
   const [dateFilterFrom, setDateFilterFrom] = useState<string>(
     getDateNDaysAgo(5)
@@ -34,6 +42,7 @@ export default function HomePage() {
   const [totalArticles, setTotalArticles] = useState<number>(0);
 
   const getNewsArticles = async () => {
+    setAPIError({ ...APIError, isFailed: false });
     setIsLoading(true);
     setTotalArticles(0);
     setArticleSources([]);
@@ -48,28 +57,33 @@ export default function HomePage() {
     const keywordFromUser: string =
       searchText.length > 0 ? `&q=${searchText}` : "";
 
-    const response = await fetch(
-      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity${categories}${keywordFromUser}&from=${dateFilterFrom}&to${dateFilterTo}&pageSize=${pageSize}`,
+    fetch(
+      `https://newsapi.org/v2/topr-headlines?language=en&sortBy=popularity${categories}${keywordFromUser}&from=${dateFilterFrom}&to${dateFilterTo}&pageSize=${pageSize}`,
       {
         method: "GET",
         headers: {
           "X-Api-Key": process.env.REACT_APP_NEWS_API_KEY?.toString() || "",
         },
       }
-    );
+    )
+      .then((response) => response.json())
+      .then((newsAPIResponse: INewsAPIResponse) => {
+        setNewAPIArticles(newsAPIResponse.articles);
+        setTotalArticles(newsAPIResponse.articles.length);
 
-    const newsAPIResponse: INewsAPIResponse = await response.json();
-    setNewAPIArticles(newsAPIResponse.articles);
-    setTotalArticles(newsAPIResponse.articles.length);
-
-    // get unique sources
-    setArticleSources([
-      ...new Set(
-        newsAPIResponse.articles.map((item: INewsArticle) => item.author)
-      ),
-    ]);
-
-    setIsLoading(false);
+        // get unique sources
+        setArticleSources([
+          ...new Set(
+            newsAPIResponse.articles.map((item: INewsArticle) => item.author)
+          ),
+        ]);
+      })
+      .catch((error) => {
+        setAPIError({ message: error, isFailed: true });
+        console.log("News API Failed");
+        console.error(error);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
@@ -161,7 +175,7 @@ export default function HomePage() {
             Total results:&nbsp;
             {totalArticles === 0 && isLoading ? "Loading" : totalArticles}
           </p>
-          {!isLoading && totalArticles > 0 && (
+          {!isLoading && totalArticles > 0 && !APIError.isFailed && (
             <>
               {selectedArticleSource.length > 0 &&
                 newsAPIArticles
@@ -184,7 +198,19 @@ export default function HomePage() {
                 ))}
             </>
           )}
-          {!isLoading && totalArticles === 0 && <h2>No results found</h2>}
+          {!isLoading && totalArticles === 0 && !APIError.isFailed && (
+            <h2>No results found</h2>
+          )}
+          {!isLoading && APIError.isFailed && (
+            <>
+              <h2 className="error">News API failed to fetch news articles</h2>
+              {Object.keys(APIError.message).length > 0 && (
+                <pre>
+                  <code>{JSON.stringify(APIError.message, null, 2)}</code>
+                </pre>
+              )}
+            </>
+          )}
           {isLoading && <Loader />}
         </section>
 
@@ -211,6 +237,7 @@ export default function HomePage() {
             <h2 className="category-heading">Select source</h2>
             <div className="categories-list">
               {!isLoading &&
+                !APIError.isFailed &&
                 articleSources.length > 0 &&
                 articleSources.map((source: string) => (
                   <label key={source} className="label">
@@ -224,9 +251,9 @@ export default function HomePage() {
                     {source}
                   </label>
                 ))}
-              {!isLoading && articleSources.length === 0 && (
-                <h3>No sources available</h3>
-              )}
+              {!isLoading &&
+                articleSources.length === 0 &&
+                !APIError.isFailed && <h3>No sources available</h3>}
               {isLoading && <Loader />}
             </div>
           </div>

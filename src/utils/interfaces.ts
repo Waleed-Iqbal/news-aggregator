@@ -47,3 +47,8 @@ export interface INewsAPIResponse {
   totalResults: number;
   articles: INewsArticle[];
 }
+
+export interface IAPIError {
+  message: any;
+  isFailed: boolean;
+}

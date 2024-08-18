@@ -10,11 +10,13 @@ import ICON_MAGNIFYING_GLASS from "../../images/magnifier.svg";
 
 import "./home.scss";
 import { getDateNDaysAgo } from "../../utils/helpers";
+import Loader from "../../components/loader/loader";
 
 export default function HomePage() {
   const currentDate: string = getDateNDaysAgo(0);
   const userContext = useContext(UserSettingsContext);
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchText, setSearchText] = useState<string>("");
   const [dateFilterFrom, setDateFilterFrom] = useState<string>(
     getDateNDaysAgo(5)
@@ -23,17 +25,18 @@ export default function HomePage() {
   const [selectedNewsCategory, setSelectedNewsCategory] = useState<string>("");
 
   // use these after testing
-  // const [newsAPIArticles, setNewAPIArticles] = useState<INewsArticle[]>([]);
-  // const [totalArticles, setTotalArticles] = useState<number>(0);
+  const [newsAPIArticles, setNewAPIArticles] = useState<INewsArticle[]>([]);
+  const [totalArticles, setTotalArticles] = useState<number>(0);
 
-  const [newsAPIArticles, setNewAPIArticles] = useState<INewsArticle[]>(
-    newsAPIMockData.articles
-  );
-  const [totalArticles, setTotalArticles] = useState<number>(
-    newsAPIMockData.totalResults
-  );
+  // const [newsAPIArticles, setNewAPIArticles] = useState<INewsArticle[]>(
+  //   newsAPIMockData.articles
+  // );
+  // const [totalArticles, setTotalArticles] = useState<number>(
+  //   newsAPIMockData.totalResults
+  // );
 
   const getNewsArticles = async () => {
+    setIsLoading(true);
     // TODO: Remove
     console.log(userContext);
 
@@ -57,10 +60,11 @@ export default function HomePage() {
     const newsAPIResponse: INewsAPIResponse = await response.json();
     setNewAPIArticles(newsAPIResponse.articles);
     setTotalArticles(newsAPIResponse.totalResults);
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    // getNewsArticles();
+    getNewsArticles();
   }, [selectedNewsCategory]);
 
   const updateSelectedCategories = (
@@ -72,78 +76,92 @@ export default function HomePage() {
   };
 
   return (
-    <div className="mt-24 page-container">
-      <section className="filters-container">
-        <div className="keyword-input-container">
-          <input
-            type="text"
-            className="keyword-input"
-            placeholder="Enter keywords (press enter to search)"
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.keyCode === 13) {
-                getNewsArticles();
-              }
-            }}
-            onBlur={getNewsArticles}
-          />
-          <img
-            width={20}
-            height={20}
-            alt="Search"
-            className="search-icon"
-            src={ICON_MAGNIFYING_GLASS}
-          />
-        </div>
-        <div className="date-filter-container">
-          From&nbsp;
-          <input
-            type="date"
-            value={dateFilterFrom}
-            onChange={(e) => setDateFilterFrom(e.target.value)}
-          />
-          &nbsp;to&nbsp;
-          <input
-            type="date"
-            value={dateFilterTo}
-            onChange={(e) => setDateFilterTo(e.target.value)}
-          />
-          &nbsp;
-          <button className="apply-filters-button" onClick={getNewsArticles}>
-            Search
-          </button>
-        </div>
-      </section>
+    <>
+      <h1 className="page-heading">Top Headlines</h1>
+      <div className="mt-24 page-container">
+        <section className="filters-container">
+          <div className="keyword-input-container">
+            <input
+              type="text"
+              className="keyword-input"
+              placeholder="Enter keywords (press enter to search)"
+              onChange={(e) => {
+                setSearchText(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.keyCode === 13) {
+                  getNewsArticles();
+                }
+              }}
+              onBlur={getNewsArticles}
+            />
+            <img
+              width={20}
+              height={20}
+              alt="Search"
+              className="search-icon"
+              src={ICON_MAGNIFYING_GLASS}
+            />
+          </div>
+          <div className="date-filter-container">
+            From&nbsp;
+            <input
+              type="date"
+              className="date-filter-input"
+              value={dateFilterFrom}
+              onChange={(e) => setDateFilterFrom(e.target.value)}
+            />
+            &nbsp;to&nbsp;
+            <input
+              type="date"
+              className="date-filter-input"
+              value={dateFilterTo}
+              onChange={(e) => setDateFilterTo(e.target.value)}
+            />
+            &nbsp;
+            <button className="apply-filters-button" onClick={getNewsArticles}>
+              Search
+            </button>
+          </div>
+        </section>
 
-      <section className="news-articles-container">
-        <p className="articles-count">
-          Total results: {totalArticles === 0 ? "-loading-" : totalArticles}
-        </p>
-        {newsAPIArticles.map((article: INewsArticle, index: number) => (
-          <NewsArticle key={`${index}-${article.title}`} article={article} />
-        ))}
-      </section>
+        <section className="news-articles-container">
+          <p className="articles-count">
+            Total results:{" "}
+            {totalArticles === 0 && isLoading ? "Loading" : totalArticles}
+          </p>
+          {!isLoading && totalArticles > 0 && (
+            <>
+              {newsAPIArticles.map((article: INewsArticle, index: number) => (
+                <NewsArticle
+                  key={`${index}-${article.title}`}
+                  article={article}
+                />
+              ))}
+            </>
+          )}
+          {!isLoading && totalArticles === 0 && <h2>No results found</h2>}
+          {isLoading && <Loader />}
+        </section>
 
-      {/* TODO: move to a separate component once setting up the user settings with context */}
-      <section className="categories-container">
-        <h2 className="category-heading">Select a category</h2>
-        <div className="categories-list">
-          {availableCategories.newsAPI.map((category: string) => (
-            <label key={category} className="label">
-              <input
-                type="checkbox"
-                value={category}
-                className="checkbox"
-                checked={selectedNewsCategory === category}
-                onClick={(e) => updateSelectedCategories(e, category)}
-              />
-              {category}
-            </label>
-          ))}
-        </div>
-      </section>
-    </div>
+        <section className="categories-container">
+          <h2 className="category-heading">Select a category</h2>
+          <div className="categories-list">
+            {availableCategories.newsAPI.map((category: string) => (
+              <label key={category} className="label">
+                <input
+                  type="checkbox"
+                  value={category}
+                  className="checkbox"
+                  checked={selectedNewsCategory === category}
+                  onClick={(e) => updateSelectedCategories(e, category)}
+                />
+                {category}
+              </label>
+            ))}
+          </div>
+        </section>
+      </div>
+    </>
   );
 }

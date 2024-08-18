@@ -2,7 +2,7 @@
 
 .page-container {
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: 65px auto;
   grid-template-areas:
     "filters-container categories-container"
     "news-container categories-container";
@@ -11,6 +11,7 @@
 
 .filters-container {
   display: flex;
+  max-height: 65px;
   align-items: center;
   margin-right: 52px;
   padding-bottom: 20px;
@@ -30,16 +31,21 @@
   }
 
   .date-filter-container {
-    justify-self: flex-end;
-    // width: $date-filter-container-width;
+    font-size: 16px;
+  }
+
+  .date-filter-input {
+    padding: 4px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid $transparent-black;
   }
 
   .keyword-input {
     width: 100%;
-    padding: 10px;
     font-size: 16px;
     border-radius: 5px;
-    padding-right: 54px;
+    padding: 10px 54px 10px 10px;
     border: 1px solid $transparent-black;
   }
 
@@ -85,6 +91,7 @@
   }
 
   .label {
+    scale: 1;
     margin: 5px 0;
     cursor: pointer;
     font-weight: 500;
@@ -92,6 +99,7 @@
     position: relative;
     width: fit-content;
     border-radius: 20px;
+    transition: scale 200ms;
     background-color: white;
     text-transform: capitalize;
     border: 2px solid $transparent-black;
@@ -99,6 +107,10 @@
     &:has(.checkbox:checked) {
       color: black;
       background-color: $transparent-black;
+    }
+
+    &:hover {
+      scale: 1.06;
     }
   }
 
@@ -110,6 +122,12 @@
     opacity: 0;
     display: none;
     position: absolute;
+  }
+}
+
+@media screen and (max-width: $xlarge-screen) {
+  .page-heading {
+    padding: 0 15px;
   }
 }
 

@@ -45,7 +45,7 @@ export default function HomePage() {
     setArticleSources([]);
     setSelectedArticleSource("");
 
-    const categories: string =
+    const category: string =
       selectedNewsCategory.length > 0
         ? `&category=${selectedNewsCategory}`
         : "";
@@ -53,7 +53,7 @@ export default function HomePage() {
       searchText.length > 0 ? `&q=${searchText}` : "";
 
     fetch(
-      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity${categories}${keywordFromUser}&from=${dateFilterFrom}&to${dateFilterTo}&pageSize=${numberOfArticles}`,
+      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity${category}${keywordFromUser}&from=${dateFilterFrom}&to${dateFilterTo}&pageSize=${numberOfArticles}`,
       {
         method: "GET",
         headers: {

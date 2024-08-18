@@ -22,6 +22,21 @@
   }
 }
 
+.text-content {
+  margin-left: 36px;
+}
+
+.article-image {
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.article-content {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
 .article-meta-data {
   display: flex;
   margin-bottom: 0;

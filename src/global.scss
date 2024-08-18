@@ -89,7 +89,7 @@ $xlarge-screen: 1200px;
 
 @media screen and (max-width: $xlarge-screen) {
   .page-container {
-    padding: 15px;
+    padding: 0 15px;
     max-width: 100%;
   }
 }

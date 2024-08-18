@@ -72,13 +72,11 @@
   grid-area: categories-authors-container;
 }
 
-.authors-container,
 .categories-container {
   display: flex;
   flex-direction: column;
 }
 
-.authors-heading,
 .category-heading {
   margin-top: 0;
   margin-bottom: 0;
@@ -88,7 +86,6 @@
   border-left: 1px solid $transparent-black;
 }
 
-.authors-list,
 .categories-list {
   display: flex;
   flex-wrap: nowrap;
@@ -157,19 +154,16 @@
     grid-area: categories-authors-container;
   }
 
-  .authors-container,
   .categories-container {
     margin-bottom: 12px;
     flex-direction: column;
   }
 
-  .authors-heading,
   .category-heading {
     border: none;
     padding-left: 0;
   }
 
-  .authors-list,
   .categories-list {
     border: none;
     padding-left: 0;

@@ -207,9 +207,9 @@ export default function HomePage() {
             </div>
           </div>
           <br />
-          <div className="authors-container">
-            <h2 className="authors-heading">Select source</h2>
-            <div className="authors-list">
+          <div className="categories-container">
+            <h2 className="category-heading">Select source</h2>
+            <div className="categories-list">
               {!isLoading &&
                 articleAuthors.length > 0 &&
                 articleAuthors.map((author: string) => (

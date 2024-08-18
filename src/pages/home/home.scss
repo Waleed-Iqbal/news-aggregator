@@ -11,9 +11,41 @@
 
 .filters-container {
   display: flex;
+  align-items: center;
   margin-bottom: 20px;
-  justify-content: space-between;
   grid-area: filters-container;
+  justify-content: space-between;
+
+  $date-filter-container-width: 300px;
+
+  .keyword-input-container {
+    width: calc(100% - $date-filter-container-width - 10px);
+    display: flex;
+    position: relative;
+    margin-right: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .date-filter-container {
+    width: $date-filter-container-width;
+  }
+
+  .keyword-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-right: 54px;
+    border: 1px solid $transparent-black;
+  }
+
+  .search-icon {
+    right: 15px;
+    opacity: 0.5;
+    cursor: pointer;
+    position: absolute;
+  }
 }
 
 .news-articles-container {
@@ -84,6 +116,21 @@
 
     .label {
       margin-right: 15px;
+    }
+  }
+}
+
+@media screen and (max-width: $medium-screen) {
+  .filters-container {
+    flex-direction: column;
+
+    .keyword-input-container {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .date-filter-container {
+      width: 100%;
     }
   }
 }

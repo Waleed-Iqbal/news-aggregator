@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState, MouseEvent } from "react";
 import { UserSettingsContext } from "../../utils/userSettings";
 
-import { newsAPIMockData, availableCategories } from "../../utils/content";
 import { NewsArticle } from "../../components/news-article/news-article";
 
 import { INewsAPIResponse, INewsArticle } from "../../utils/interfaces";
+import { newsAPIMockData, availableCategories } from "../../utils/content";
+
+import ICON_MAGNIFYING_GLASS from "../../images/magnifier.svg";
 
 import "./home.scss";
 
@@ -63,8 +65,23 @@ export default function HomePage() {
       {/* <p>Total results: {totalArticles === 0 ? "-loading-" : totalArticles}</p> */}
 
       <section className="filters-container">
-        <div>Search by typing</div>
-        <div>Last x days/months/years</div>
+        <div className="keyword-input-container">
+          <input
+            type="text"
+            className="keyword-input"
+            placeholder="Search news"
+          />
+          <img
+            width={20}
+            height={20}
+            alt="Search"
+            className="search-icon"
+            src={ICON_MAGNIFYING_GLASS}
+          />
+        </div>
+        <div className="date-filter-container">
+          From last x days/months/years
+        </div>
       </section>
 
       <section className="news-articles-container">

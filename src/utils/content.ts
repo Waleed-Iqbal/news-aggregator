@@ -1,4 +1,4 @@
-import { IPageInfo, IStringArray, INewsAPIResponse } from "./interfaces";
+import { IPageInfo, IStringArray } from "./interfaces";
 
 export enum AppNavigationLinks {
   default = "/",

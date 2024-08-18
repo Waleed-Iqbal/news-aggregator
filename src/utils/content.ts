@@ -33,6 +33,18 @@ export const PageInfo: IPageInfo = {
   },
 };
 
+export const availableCategories = {
+  newsAPI: [
+    "business",
+    "entertainment",
+    "general",
+    "health",
+    "science",
+    "sports",
+    "technology",
+  ],
+};
+
 // remove after dev complete
 export const newsAPIMockData: INewsAPIResponse = {
   status: "ok",

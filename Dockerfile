@@ -1,3 +1,6 @@
+# I cannot install Docker on my machine
+# so I don't know if this will run or not
+
 FROM node:18
 
 WORKDIR /app

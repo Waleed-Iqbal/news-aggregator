@@ -1,3 +1,5 @@
+@import "../../global.scss";
+
 .news-article-container {
   color: black;
   display: flex;
@@ -9,14 +11,14 @@
   text-decoration: none;
   flex-direction: column;
   scale: 1;
-  background-color: #00000011;
+  background-color: $transparent-grey;
   transition:
     background-color 300ms,
     scale 300ms;
 
   &:hover {
     scale: 1.01;
-    background-color: #00000022;
+    background-color: $transparent-black;
   }
 }
 

@@ -5,7 +5,7 @@
   display: grid;
   padding: 0 15px;
   grid-template-rows: auto;
-  background-color: #00000022;
+  background-color: $transparent-black;
   grid-template-columns: 1fr auto 400px;
   grid-template-areas: "logo . navigation-links";
 }
@@ -70,8 +70,10 @@
   }
 
   .navigation-links {
+    z-index: 1;
     display: none;
     background: lightgray;
+    box-shadow: 0 0 10px 0 $transparent-black;
 
     &.open {
       top: 70px;
@@ -92,7 +94,7 @@
     align-self: center;
     border-radius: 10px;
     grid-area: nav-menu-button;
-    border: 1px solid #00000022;
+    border: 1px solid $transparent-black;
     transition: background-color 300ms;
 
     &:hover {
@@ -130,7 +132,7 @@
 
     &:hover {
       scale: 1.13 1.18;
-      background-color: #00000011;
+      background-color: $transparent-grey;
     }
   }
 }

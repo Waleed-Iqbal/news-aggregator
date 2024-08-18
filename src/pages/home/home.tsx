@@ -28,6 +28,9 @@ export default function HomePage() {
   );
 
   const getNewsArticles = async () => {
+    // TODO: Remove
+    console.log(userContext);
+
     const categories: string =
       selectedNewsCategory.length > 0
         ? `&category=${selectedNewsCategory}`
@@ -65,7 +68,6 @@ export default function HomePage() {
   return (
     <div className="mt-24 page-container">
       {/* to avoid excessive API calls */}
-      {/* <p>Total results: {totalArticles === 0 ? "-loading-" : totalArticles}</p> */}
 
       <section className="filters-container">
         <div className="keyword-input-container">
@@ -97,6 +99,9 @@ export default function HomePage() {
       </section>
 
       <section className="news-articles-container">
+        <p className="mb-5">
+          Total results: {totalArticles === 0 ? "-loading-" : totalArticles}
+        </p>
         {newsAPIArticles.map((article: INewsArticle, index: number) => (
           <NewsArticle key={`${index}-${article.title}`} article={article} />
         ))}

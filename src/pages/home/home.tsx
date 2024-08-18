@@ -58,6 +58,7 @@ export default function HomePage() {
 
   useEffect(() => {
     getNewsArticles();
+    // eslint-disable-next-line
   }, [selectedNewsCategory]);
 
   const updateSelectedCategories = (

@@ -33,3 +33,18 @@ export const getDateNDaysAgo = (days: number): string => {
 
   return `${year}-${month}-${day}`;
 };
+
+/**
+ * Get random values from an array
+ * @param arr: T[] - the array to get random values from
+ * @param count: number - the number of random values to get
+ * @returns string - the formatted date string in the form "2024-08-17"
+ */
+export const getRandomValuesFromAnArray = <T>(arr: T[], count: number): T[] => {
+  const shuffled = arr
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+
+  return shuffled.slice(0, count);
+};

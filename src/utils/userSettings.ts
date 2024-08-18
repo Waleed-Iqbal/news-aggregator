@@ -1,67 +1,18 @@
 import { createContext } from "react";
+
 import { IUserSettingsContext, IUserSettings } from "./interfaces";
 
-export const supportedCountries_NewsAPI = [
-  "ae",
-  "ar",
-  "at",
-  "au",
-  "be",
-  "bg",
-  "br",
-  "ca",
-  "ch",
-  "cn",
-  "co",
-  "cu",
-  "cz",
-  "de",
-  "eg",
-  "fr",
-  "gb",
-  "gr",
-  "hk",
-  "hu",
-  "id",
-  "ie",
-  "il",
-  "in",
-  "it",
-  "jp",
-  "kr",
-  "lt",
-  "lv",
-  "ma",
-  "mx",
-  "my",
-  "ng",
-  "nl",
-  "no",
-  "nz",
-  "ph",
-  "pl",
-  "pt",
-  "ro",
-  "rs",
-  "ru",
-  "sa",
-  "se",
-  "sg",
-  "si",
-  "sk",
-  "th",
-  "tr",
-  "tw",
-  "ua",
-  "us",
-  "ve",
-  "za",
-];
+import { availableCategories, availableSources } from "./content";
+
+import { getRandomValuesFromAnArray } from "./helpers";
 
 export const defaultUserSettings: IUserSettings = {
-  interests: ["sports", "technology", "politics"],
+  pageSize: 20,
+  sources: getRandomValuesFromAnArray(availableSources.newsAPI, 3),
+  categories: getRandomValuesFromAnArray(availableCategories.newsAPI, 3),
 };
 
-export const UserSettingsContext = createContext<IUserSettingsContext | null>(
-  null,
-);
+export const UserSettingsContext = createContext<IUserSettingsContext>({
+  userSettings: defaultUserSettings,
+  setUserSettings: () => {},
+});

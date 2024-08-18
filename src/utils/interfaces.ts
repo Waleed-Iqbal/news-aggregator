@@ -15,8 +15,9 @@ export interface IStringArray {
 }
 
 export interface IUserSettings {
-  interests: string[];
+  sources: string[];
   pageSize?: number;
+  categories: string[];
 }
 
 export type IUserSettingsContext = {

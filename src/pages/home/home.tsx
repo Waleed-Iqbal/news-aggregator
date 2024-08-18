@@ -9,11 +9,17 @@ import { newsAPIMockData, availableCategories } from "../../utils/content";
 import ICON_MAGNIFYING_GLASS from "../../images/magnifier.svg";
 
 import "./home.scss";
+import { getDateNDaysAgo } from "../../utils/helpers";
 
 export default function HomePage() {
+  const currentDate: string = getDateNDaysAgo(0);
   const userContext = useContext(UserSettingsContext);
 
   const [searchText, setSearchText] = useState<string>("");
+  const [dateFilterFrom, setDateFilterFrom] = useState<string>(
+    getDateNDaysAgo(5)
+  );
+  const [dateFilterTo, setDateFilterTo] = useState<string>(currentDate);
   const [selectedNewsCategory, setSelectedNewsCategory] = useState<string>("");
 
   // use these after testing
@@ -39,7 +45,7 @@ export default function HomePage() {
       searchText.length > 0 ? `&q=${searchText}` : "";
 
     const response = await fetch(
-      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity${categories}${keywordFromUser}`,
+      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity&q=${searchText}${categories}${keywordFromUser}&from=${dateFilterFrom}&to${dateFilterTo}`,
       {
         method: "GET",
         headers: {
@@ -67,8 +73,6 @@ export default function HomePage() {
 
   return (
     <div className="mt-24 page-container">
-      {/* to avoid excessive API calls */}
-
       <section className="filters-container">
         <div className="keyword-input-container">
           <input
@@ -94,12 +98,27 @@ export default function HomePage() {
           />
         </div>
         <div className="date-filter-container">
-          From last x days/months/years
+          From&nbsp;
+          <input
+            type="date"
+            value={dateFilterFrom}
+            onChange={(e) => setDateFilterFrom(e.target.value)}
+          />
+          &nbsp;to&nbsp;
+          <input
+            type="date"
+            value={dateFilterTo}
+            onChange={(e) => setDateFilterTo(e.target.value)}
+          />
+          &nbsp;
+          <button className="apply-filters-button" onClick={getNewsArticles}>
+            Search
+          </button>
         </div>
       </section>
 
       <section className="news-articles-container">
-        <p className="mb-5">
+        <p className="articles-count">
           Total results: {totalArticles === 0 ? "-loading-" : totalArticles}
         </p>
         {newsAPIArticles.map((article: INewsArticle, index: number) => (
@@ -109,7 +128,7 @@ export default function HomePage() {
 
       {/* TODO: move to a separate component once setting up the user settings with context */}
       <section className="categories-container">
-        <h2 className="mt-0 mb-12">Select a category</h2>
+        <h2 className="category-heading">Select a category</h2>
         <div className="categories-list">
           {availableCategories.newsAPI.map((category: string) => (
             <label key={category} className="label">

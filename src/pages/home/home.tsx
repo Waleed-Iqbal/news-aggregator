@@ -1,10 +1,12 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserSettingsContext } from "../../utils/userSettings";
 
-import { INewsAPIResponse } from "../../utils/interfaces";
+import { INewsAPIResponse, INewsArticle } from "../../utils/interfaces";
 
 export default function HomePage() {
   const userContext = useContext(UserSettingsContext);
+  const [newAPIHeadlines, setNewAPIHeadlines] = useState<INewsArticle[]>([]);
+  const [totalArticles, setTotalArticles] = useState<number>(0);
 
   const getHeadlines = async () => {
     const response = await fetch(
@@ -17,19 +19,23 @@ export default function HomePage() {
       }
     );
 
-    const data: INewsAPIResponse = await response.json();
-    console.log(data);
+    const newsAPIResponse: INewsAPIResponse = await response.json();
+    setNewAPIHeadlines(newsAPIResponse.articles);
+    setTotalArticles(newsAPIResponse.totalResults);
   };
 
-  useEffect(() => {
-    getHeadlines();
-  }, []);
+  // useEffect(() => {
+  //   getHeadlines();
+  // }, []);
 
   return (
     <>
+      {/* to avoid excessive API calls */}
+      <button onClick={getHeadlines}>Set country to US</button>
       <h1>This is home page</h1>
+      <p>Total results: {totalArticles === 0 ? "-loading-" : totalArticles}</p>
       <pre>
-        <code>{JSON.stringify(userContext, null, 2)}</code>
+        <code>{JSON.stringify(setNewAPIHeadlines, null, 2)}</code>
       </pre>
     </>
   );

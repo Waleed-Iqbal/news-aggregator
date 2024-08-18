@@ -32,9 +32,9 @@ export interface INewsArticle {
   url: string;
   title: string;
   author: string;
-  content: string;
-  urlToImage: string;
-  description: string;
+  content: string | null;
+  urlToImage: string | null;
+  description: string | null;
   publishedAt: string;
 }
 

@@ -54,8 +54,7 @@ export default function HomePage() {
     category: string
   ) => {
     e.stopPropagation();
-
-    setSelectedNewsCategory(category);
+    setSelectedNewsCategory(selectedNewsCategory === category ? "" : category);
   };
 
   return (

@@ -32,7 +32,7 @@
   }
 
   .label {
-    margin: 5px;
+    margin: 5px 0;
     cursor: pointer;
     font-weight: 500;
     padding: 5px 20px;
@@ -57,5 +57,33 @@
     opacity: 0;
     display: none;
     position: absolute;
+  }
+}
+
+@media screen and (max-width: $large-screen) {
+  .page-container {
+    grid-template-rows: auto auto max-content;
+    grid-template-areas:
+      "filters-container"
+      "categories-container"
+      "news-container";
+    grid-template-columns: 100%;
+  }
+
+  .categories-container {
+    display: flex;
+    margin-bottom: 12px;
+    flex-direction: column;
+    grid-area: categories-container;
+
+    .categories-list {
+      display: flex;
+      overflow-x: auto;
+      flex-direction: row;
+    }
+
+    .label {
+      margin-right: 15px;
+    }
   }
 }

@@ -3,8 +3,7 @@
 .news-article-container {
   color: black;
   display: flex;
-  max-width: 80%;
-  margin: 0 auto;
+  max-width: 90%;
   padding: 10px 15px;
   border-radius: 5px;
   margin-bottom: 30px;
@@ -28,13 +27,7 @@
   justify-content: flex-start;
 }
 
-@media screen and (max-width: $xlarge-screen) {
-  .news-article-container {
-    max-width: 90%;
-  }
-}
-
-@media screen and (max-width: $medium-screen) {
+@media screen and (max-width: $large-screen) {
   .news-article-container {
     max-width: 100%;
   }

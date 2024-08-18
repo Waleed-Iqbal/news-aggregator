@@ -75,7 +75,7 @@ export default function HomePage() {
 
       {/* TODO: move to a separate component once setting up the user settings with context */}
       <section className="categories-container">
-        <h2>Select a category</h2>
+        <h2 className="mt-0 mb-12">Select a category</h2>
         <div className="categories-list">
           {availableCategories.newsAPI.map((category: string) => (
             <label key={category} className="label">

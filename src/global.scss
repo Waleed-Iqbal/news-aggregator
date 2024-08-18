@@ -19,7 +19,7 @@ $transparent-grey: #00000011;
 $transparent-black: #00000022;
 
 .page-container {
-  max-width: 1080px;
+  max-width: 1140px;
 }
 
 @for $i from -2 through 94 {
@@ -80,6 +80,13 @@ $xlarge-screen: 1200px;
 
 .mobile {
   display: none;
+}
+
+@media screen and (max-width: $xlarge-screen) {
+  .page-container {
+    padding: 15px;
+    max-width: 100%;
+  }
 }
 
 @media screen and (max-width: $medium-screen) {

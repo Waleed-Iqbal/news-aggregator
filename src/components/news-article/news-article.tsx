@@ -4,6 +4,8 @@ import { INewsArticle } from "../../utils/interfaces";
 
 import { getArticlePublishDate } from "../../utils/helpers";
 
+import REDIRECT_ICON from "../../images/redirect.svg";
+
 import "./news-article.scss";
 
 export const NewsArticle = ({ article }: { article: INewsArticle }) => {
@@ -12,7 +14,7 @@ export const NewsArticle = ({ article }: { article: INewsArticle }) => {
   return (
     <Link to={article.url} target="_blank" className="news-article-container">
       <div className="article-content">
-        <h2 className="mt-0">{article.title}</h2>
+        <h2 className="mt-0 pr-30">{article.title}</h2>
         <p>{article.description}</p>
       </div>
       <div className="article-meta-data">
@@ -23,6 +25,13 @@ export const NewsArticle = ({ article }: { article: INewsArticle }) => {
           <strong>Published:</strong> {articlePublishDate}
         </p>
       </div>
+      <img
+        src={REDIRECT_ICON}
+        alt="open article in new tab"
+        width={24}
+        height={24}
+        className="redirect-icon"
+      />
     </Link>
   );
 };

@@ -3,15 +3,15 @@ import { INewsAPIResponse, IPageInfo } from "./interfaces";
 export enum AppNavigationLinks {
   default = "/",
   home = "/home",
-  settings = "/settings",
   newsFeed = "/news-feed",
+  settings = "/settings",
 }
 
 export enum PageTitles {
   default = "/",
   home = "Home",
-  settings = "Settings",
   newsFeed = "News Feed",
+  settings = "Settings",
 }
 
 export const PageInfo: IPageInfo = {
@@ -23,18 +23,18 @@ export const PageInfo: IPageInfo = {
     title: PageTitles.home,
     link: AppNavigationLinks.home,
   },
-  settings: {
-    title: PageTitles.settings,
-    link: AppNavigationLinks.settings,
-  },
   newsFeed: {
     title: PageTitles.newsFeed,
     link: AppNavigationLinks.newsFeed,
   },
+  settings: {
+    title: PageTitles.settings,
+    link: AppNavigationLinks.settings,
+  },
 };
 
 // remove after dev complete
-const newsAPIMockData: INewsAPIResponse = {
+export const newsAPIMockData: INewsAPIResponse = {
   status: "ok",
   totalResults: 32,
   articles: [

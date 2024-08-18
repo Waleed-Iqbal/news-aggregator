@@ -10,6 +10,9 @@ export interface IPageInfo {
 export interface IString {
   [key: string]: string;
 }
+export interface IStringArray {
+  [key: string]: string[];
+}
 
 export interface IUserSettings {
   interests: string[];

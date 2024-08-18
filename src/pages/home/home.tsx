@@ -16,8 +16,8 @@ import ICON_MAGNIFYING_GLASS from "../../images/magnifier.svg";
 import "./home.scss";
 
 export default function HomePage() {
+  const numberOfArticles: number = 20;
   const currentDate: string = getDateNDaysAgo(0);
-  const pageSize: number = 20;
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [APIError, setAPIError] = useState<IAPIError>({
@@ -53,7 +53,7 @@ export default function HomePage() {
       searchText.length > 0 ? `&q=${searchText}` : "";
 
     fetch(
-      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity${categories}${keywordFromUser}&from=${dateFilterFrom}&to${dateFilterTo}&pageSize=${pageSize}`,
+      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity${categories}${keywordFromUser}&from=${dateFilterFrom}&to${dateFilterTo}&pageSize=${numberOfArticles}`,
       {
         method: "GET",
         headers: {

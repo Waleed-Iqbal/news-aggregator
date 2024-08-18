@@ -7,7 +7,7 @@ import { availableCategories, availableSources } from "./content";
 import { getRandomValuesFromAnArray } from "./helpers";
 
 export const defaultUserSettings: IUserSettings = {
-  pageSize: 20,
+  numberOfArticles: 20,
   sources: getRandomValuesFromAnArray(availableSources.newsAPI, 3),
   categories: getRandomValuesFromAnArray(availableCategories.newsAPI, 3),
 };

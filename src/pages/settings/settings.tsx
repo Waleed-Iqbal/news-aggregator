@@ -17,13 +17,18 @@ export default function SettingsPage() {
     defaultUserSettings.categories
   );
 
+  const [numberOfArticles, setNumberOfArticles] = useState<number>(
+    userContext.userSettings.numberOfArticles
+  );
+
   useEffect(() => {
     userContext.setUserSettings({
       sources: selectedSources,
+      numberOfArticles: numberOfArticles,
       categories: selectedCategories,
     });
     // eslint-disable-next-line
-  }, [selectedSources, selectedCategories]);
+  }, [selectedSources, selectedCategories, numberOfArticles]);
 
   const updateSelectedSources = (
     e: MouseEvent<HTMLInputElement>,
@@ -60,7 +65,7 @@ export default function SettingsPage() {
   return (
     <section className="page-container settings-page">
       <h1 className="page-heading">
-        Preferences (some are selected by default)
+        Set preferences (some are selected by default)
       </h1>
       <div className="categories-container">
         <h2 className="category-heading">Sources</h2>
@@ -96,6 +101,15 @@ export default function SettingsPage() {
           ))}
         </div>
       </div>
+
+      <p className="number-of-articles">
+        Number of articles to display&nbsp;
+        <input
+          type="number"
+          value={numberOfArticles}
+          onChange={(e) => setNumberOfArticles(Number(e.target.value))}
+        />
+      </p>
     </section>
   );
 }

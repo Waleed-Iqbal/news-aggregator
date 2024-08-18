@@ -16,8 +16,8 @@ export interface IStringArray {
 
 export interface IUserSettings {
   sources: string[];
-  pageSize?: number;
   categories: string[];
+  numberOfArticles: number;
 }
 
 export type IUserSettingsContext = {

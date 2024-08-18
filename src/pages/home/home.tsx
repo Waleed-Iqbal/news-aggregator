@@ -58,7 +58,7 @@ export default function HomePage() {
       searchText.length > 0 ? `&q=${searchText}` : "";
 
     fetch(
-      `https://newsapi.org/v2/topr-headlines?language=en&sortBy=popularity${categories}${keywordFromUser}&from=${dateFilterFrom}&to${dateFilterTo}&pageSize=${pageSize}`,
+      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity${categories}${keywordFromUser}&from=${dateFilterFrom}&to${dateFilterTo}&pageSize=${pageSize}`,
       {
         method: "GET",
         headers: {

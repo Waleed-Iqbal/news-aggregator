@@ -14,9 +14,14 @@ code {
     monospace;
 }
 
+$error-red: #ff0033;
 $transparent-gray: #00000011;
 $transparent-grey: #00000011;
 $transparent-black: #00000022;
+
+.error {
+  color: $error-red;
+}
 
 .page-container {
   max-width: 1140px;

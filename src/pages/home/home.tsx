@@ -4,7 +4,7 @@ import { UserSettingsContext } from "../../utils/userSettings";
 import { NewsArticle } from "../../components/news-article/news-article";
 
 import { INewsAPIResponse, INewsArticle } from "../../utils/interfaces";
-import { newsAPIMockData, availableCategories } from "../../utils/content";
+import { availableCategories } from "../../utils/content";
 
 import ICON_MAGNIFYING_GLASS from "../../images/magnifier.svg";
 
@@ -27,13 +27,6 @@ export default function HomePage() {
   // use these after testing
   const [newsAPIArticles, setNewAPIArticles] = useState<INewsArticle[]>([]);
   const [totalArticles, setTotalArticles] = useState<number>(0);
-
-  // const [newsAPIArticles, setNewAPIArticles] = useState<INewsArticle[]>(
-  //   newsAPIMockData.articles
-  // );
-  // const [totalArticles, setTotalArticles] = useState<number>(
-  //   newsAPIMockData.totalResults
-  // );
 
   const getNewsArticles = async () => {
     setIsLoading(true);

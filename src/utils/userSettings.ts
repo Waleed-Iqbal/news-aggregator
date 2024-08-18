@@ -1,10 +1,10 @@
 import { createContext } from "react";
-import { IUserSettingContext, IUserSettings } from "./interfaces";
+import { IUserSettingsContext, IUserSettings } from "./interfaces";
 
 export const defaultUserSettings: IUserSettings = {
   interests: ["sports", "technology", "politics"],
 };
 
-export const UserSettingsContext = createContext<IUserSettingContext | null>(
+export const UserSettingsContext = createContext<IUserSettingsContext | null>(
   null
 );

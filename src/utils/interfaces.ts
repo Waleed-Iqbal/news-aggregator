@@ -1,8 +1,10 @@
+export interface ILinkTitle {
+  link: string;
+  title: string;
+}
+
 export interface IPageInfo {
-  [key: string]: {
-    link: string;
-    title: string;
-  };
+  [key: string]: ILinkTitle;
 }
 
 export interface IString {
@@ -13,7 +15,7 @@ export interface IUserSettings {
   interests: string[];
 }
 
-export type IUserSettingContext = {
+export type IUserSettingsContext = {
   userSettings: IUserSettings;
   setUserSettings: (settings: IUserSettings) => void;
 };

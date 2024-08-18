@@ -8,6 +8,7 @@ import ICON_NEWSPAPER from "../../images/newspaper.svg";
 
 import "./navigation.scss";
 import "../../global.scss";
+import { ILinkTitle } from "../../utils/interfaces";
 
 export default function Navigation() {
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
@@ -16,7 +17,7 @@ export default function Navigation() {
     setIsNavigationOpen(!isNavigationOpen);
   };
 
-  const navigationLinks = Object.values(PageInfo).filter(
+  const navigationLinks: ILinkTitle[] = Object.values(PageInfo).filter(
     (pageInfo) => pageInfo.link !== AppNavigationLinks.default
   );
 

@@ -16,6 +16,7 @@ export interface IStringArray {
 
 export interface IUserSettings {
   interests: string[];
+  pageSize?: number;
 }
 
 export type IUserSettingsContext = {

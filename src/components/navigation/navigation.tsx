@@ -18,7 +18,7 @@ export default function Navigation() {
   };
 
   const navigationLinks: ILinkTitle[] = Object.values(PageInfo).filter(
-    (pageInfo) => pageInfo.link !== AppNavigationLinks.default
+    (pageInfo) => pageInfo.link !== AppNavigationLinks.default,
   );
 
   return (

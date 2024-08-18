@@ -63,5 +63,5 @@ export const defaultUserSettings: IUserSettings = {
 };
 
 export const UserSettingsContext = createContext<IUserSettingsContext | null>(
-  null
+  null,
 );

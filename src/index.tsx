@@ -8,7 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 import "./global.scss";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 
 // Commented <React.StrictMode> to avoid excessive API calls
@@ -17,7 +17,7 @@ root.render(
   // <React.StrictMode>
   <BrowserRouter>
     <App />
-  </BrowserRouter>
+  </BrowserRouter>,
   // </React.StrictMode>
 );
 

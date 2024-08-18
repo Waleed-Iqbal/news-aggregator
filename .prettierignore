@@ -10,6 +10,7 @@ netlify.toml
 
 
 *.pdf
+src/**/*.svg
 src/**/*.png
 src/**/*.jpg
 src/**/*.jpeg

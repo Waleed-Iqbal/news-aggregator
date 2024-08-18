@@ -1,0 +1,27 @@
+.news-article-container {
+  color: black;
+  display: flex;
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  text-decoration: none;
+  flex-direction: column;
+  scale: 1;
+  background-color: #00000011;
+  transition:
+    background-color 300ms,
+    scale 300ms;
+
+  &:hover {
+    scale: 1.01;
+    background-color: #00000022;
+  }
+}
+
+.article-meta-data {
+  display: flex;
+  margin-bottom: 0;
+  justify-content: flex-start;
+}

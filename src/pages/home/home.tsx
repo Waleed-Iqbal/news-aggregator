@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, MouseEvent } from "react";
 import { UserSettingsContext } from "../../utils/userSettings";
 
 import { newsAPIMockData, availableCategories } from "../../utils/content";
@@ -11,6 +11,8 @@ import "./home.scss";
 export default function HomePage() {
   const userContext = useContext(UserSettingsContext);
 
+  const [selectedNewsCategory, setSelectedNewsCategory] = useState<string>("");
+
   // use these after testing
   // const [newsAPIArticles, setNewAPIArticles] = useState<INewsArticle[]>([]);
   // const [totalArticles, setTotalArticles] = useState<number>(0);
@@ -22,9 +24,14 @@ export default function HomePage() {
     newsAPIMockData.totalResults
   );
 
-  const setHeadlines = async () => {
+  const getNewsArticles = async () => {
+    const categories: string =
+      selectedNewsCategory.length > 0
+        ? `&category=${selectedNewsCategory}`
+        : "";
+
     const response = await fetch(
-      "https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity",
+      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity${categories}`,
       {
         method: "GET",
         headers: {
@@ -38,9 +45,18 @@ export default function HomePage() {
     setTotalArticles(newsAPIResponse.totalResults);
   };
 
-  // useEffect(() => {
-  //   setHeadlines();
-  // }, []);
+  useEffect(() => {
+    // getNewsArticles();
+  }, [selectedNewsCategory]);
+
+  const updateSelectedCategories = (
+    e: MouseEvent<HTMLInputElement>,
+    category: string
+  ) => {
+    e.stopPropagation();
+
+    setSelectedNewsCategory(category);
+  };
 
   return (
     <div className="mt-24 page-container">
@@ -58,13 +74,23 @@ export default function HomePage() {
         ))}
       </section>
 
+      {/* TODO: move to a separate component once setting up the user settings with context */}
       <section className="categories-container">
-        <h2>Categories</h2>
-        {availableCategories.newsAPI.map((category: string) => (
-          <li key={category} className="category">
-            {category}
-          </li>
-        ))}
+        <h2>Select a category</h2>
+        <div className="categories-list">
+          {availableCategories.newsAPI.map((category: string) => (
+            <label key={category} className="label">
+              <input
+                type="checkbox"
+                value={category}
+                className="checkbox"
+                checked={selectedNewsCategory === category}
+                onClick={(e) => updateSelectedCategories(e, category)}
+              />
+              {category}
+            </label>
+          ))}
+        </div>
       </section>
     </div>
   );

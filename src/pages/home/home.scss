@@ -2,11 +2,11 @@
 
 .page-container {
   display: grid;
-  grid-template-columns: minmax(500px, 80%) minmax(200px, 20%);
   grid-template-rows: auto auto;
   grid-template-areas:
     "filters-container categories-container"
     "news-container categories-container";
+  grid-template-columns: minmax(500px, 75%) minmax(200px, 25%);
 }
 
 .filters-container {
@@ -16,12 +16,46 @@
   grid-area: filters-container;
 }
 
+.news-articles-container {
+  grid-area: news-container;
+}
+
 .categories-container {
   display: flex;
   flex-direction: column;
   grid-area: categories-container;
-}
 
-.news-articles-container {
-  grid-area: news-container;
+  .categories-list {
+    display: flex;
+    flex-wrap: no-wrap;
+    flex-direction: column;
+  }
+
+  .label {
+    margin: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 5px 20px;
+    position: relative;
+    width: fit-content;
+    border-radius: 20px;
+    background-color: white;
+    text-transform: capitalize;
+    border: 2px solid $transparent-black;
+
+    &:has(.checkbox:checked) {
+      color: black;
+      background-color: $transparent-black;
+    }
+  }
+
+  .remove-category {
+    position: absolute;
+  }
+
+  .checkbox {
+    opacity: 0;
+    display: none;
+    position: absolute;
+  }
 }

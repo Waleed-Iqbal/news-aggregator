@@ -13,6 +13,7 @@ import "./home.scss";
 export default function HomePage() {
   const userContext = useContext(UserSettingsContext);
 
+  const [searchText, setSearchText] = useState<string>("");
   const [selectedNewsCategory, setSelectedNewsCategory] = useState<string>("");
 
   // use these after testing
@@ -31,9 +32,11 @@ export default function HomePage() {
       selectedNewsCategory.length > 0
         ? `&category=${selectedNewsCategory}`
         : "";
+    const keywordFromUser: string =
+      searchText.length > 0 ? `&q=${searchText}` : "";
 
     const response = await fetch(
-      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity${categories}`,
+      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity${categories}${keywordFromUser}`,
       {
         method: "GET",
         headers: {
@@ -69,7 +72,16 @@ export default function HomePage() {
           <input
             type="text"
             className="keyword-input"
-            placeholder="Search news"
+            placeholder="Enter keywords (press enter to search)"
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.keyCode === 13) {
+                getNewsArticles();
+              }
+            }}
+            onBlur={getNewsArticles}
           />
           <img
             width={20}

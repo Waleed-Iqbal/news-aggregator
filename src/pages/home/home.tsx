@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState, MouseEvent } from "react";
-import { UserSettingsContext } from "../../utils/userSettings";
+import { useEffect, useState, MouseEvent } from "react";
 
+import Loader from "../../components/loader/loader";
 import { NewsArticle } from "../../components/news-article/news-article";
 
 import {
@@ -8,19 +8,16 @@ import {
   INewsArticle,
   INewsAPIResponse,
 } from "../../utils/interfaces";
+import { getDateNDaysAgo } from "../../utils/helpers";
 import { availableCategories } from "../../utils/content";
 
 import ICON_MAGNIFYING_GLASS from "../../images/magnifier.svg";
 
 import "./home.scss";
-import { getDateNDaysAgo } from "../../utils/helpers";
-import Loader from "../../components/loader/loader";
 
 export default function HomePage() {
   const currentDate: string = getDateNDaysAgo(0);
-  const userContext = useContext(UserSettingsContext);
-  const pageSize: number =
-    (userContext && userContext.userSettings.pageSize) || 20;
+  const pageSize: number = 20;
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [APIError, setAPIError] = useState<IAPIError>({
@@ -47,8 +44,6 @@ export default function HomePage() {
     setTotalArticles(0);
     setArticleSources([]);
     setSelectedArticleSource("");
-    // TODO: Remove
-    console.log(userContext);
 
     const categories: string =
       selectedNewsCategory.length > 0
@@ -99,7 +94,7 @@ export default function HomePage() {
     setSelectedNewsCategory(selectedNewsCategory === category ? "" : category);
   };
 
-  const updateSelectedAuthor = (
+  const updateSelectedSource = (
     e: MouseEvent<HTMLInputElement>,
     source: string
   ) => {
@@ -122,7 +117,7 @@ export default function HomePage() {
   return (
     <>
       <h1 className="page-heading">Top Headlines</h1>
-      <div className="mt-24 page-container">
+      <div className="mt-24 page-container home-page">
         <section className="filters-container">
           <div className="keyword-input-container">
             <input
@@ -246,7 +241,7 @@ export default function HomePage() {
                       value={source}
                       className="checkbox"
                       checked={selectedArticleSource === source}
-                      onClick={(e) => updateSelectedAuthor(e, source)}
+                      onClick={(e) => updateSelectedSource(e, source)}
                     />
                     {source}
                   </label>

@@ -1,0 +1,25 @@
+.settings-page {
+  .page-heading {
+    padding-left: 0;
+  }
+  .categories-container {
+    margin-top: 24px;
+  }
+
+  .category-heading {
+    border: none;
+    font-size: 22px;
+    padding-left: 0;
+  }
+
+  .categories-list {
+    border: none;
+    padding-left: 0;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  .label {
+    margin-right: 10px;
+  }
+}

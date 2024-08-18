@@ -1,0 +1,27 @@
+@import "../../global.scss";
+
+.page-container {
+  display: grid;
+  grid-template-columns: minmax(500px, 80%) minmax(200px, 20%);
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "filters-container categories-container"
+    "news-container categories-container";
+}
+
+.filters-container {
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  grid-area: filters-container;
+}
+
+.categories-container {
+  display: flex;
+  flex-direction: column;
+  grid-area: categories-container;
+}
+
+.news-articles-container {
+  grid-area: news-container;
+}

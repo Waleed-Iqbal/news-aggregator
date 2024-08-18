@@ -4,8 +4,8 @@
   display: grid;
   grid-template-rows: 65px auto;
   grid-template-areas:
-    "filters-container categories-container"
-    "news-container categories-container";
+    "filters-container categories-authors-container"
+    "news-container categories-authors-container";
   grid-template-columns: minmax(500px, 80%) minmax(200px, 20%);
 }
 
@@ -68,61 +68,67 @@
   font-style: italic;
 }
 
-.categories-container {
+.categories-authors-container {
+  grid-area: categories-authors-container;
+}
+
+.categories-container,
+.authors-container {
   display: flex;
   flex-direction: column;
-  grid-area: categories-container;
+}
 
-  .category-heading {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-weight: 500;
-    padding-left: 15px;
-    padding-bottom: 12px;
-    border-left: 1px solid $transparent-black;
+.authors-heading,
+.category-heading {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 500;
+  padding-left: 15px;
+  padding-bottom: 12px;
+  border-left: 1px solid $transparent-black;
+}
+
+.authors-list,
+.categories-list {
+  display: flex;
+  flex-wrap: no-wrap;
+  padding-left: 15px;
+  flex-direction: column;
+  border-left: 1px solid $transparent-black;
+}
+
+.label {
+  scale: 1;
+  margin: 5px 0;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 5px 20px;
+  position: relative;
+  width: fit-content;
+  border-radius: 20px;
+  transition: scale 200ms;
+  background-color: white;
+  text-transform: capitalize;
+  border: 2px solid $transparent-black;
+
+  &:has(.checkbox:checked) {
+    color: black;
+    background-color: $transparent-black;
   }
 
-  .categories-list {
-    display: flex;
-    flex-wrap: no-wrap;
-    padding-left: 15px;
-    flex-direction: column;
-    border-left: 1px solid $transparent-black;
+  &:hover {
+    scale: 1.06;
   }
+}
 
-  .label {
-    scale: 1;
-    margin: 5px 0;
-    cursor: pointer;
-    font-weight: 500;
-    padding: 5px 20px;
-    position: relative;
-    width: fit-content;
-    border-radius: 20px;
-    transition: scale 200ms;
-    background-color: white;
-    text-transform: capitalize;
-    border: 2px solid $transparent-black;
+.remove-category {
+  position: absolute;
+}
 
-    &:has(.checkbox:checked) {
-      color: black;
-      background-color: $transparent-black;
-    }
-
-    &:hover {
-      scale: 1.06;
-    }
-  }
-
-  .remove-category {
-    position: absolute;
-  }
-
-  .checkbox {
-    opacity: 0;
-    display: none;
-    position: absolute;
-  }
+.checkbox {
+  opacity: 0;
+  display: none;
+  position: absolute;
 }
 
 @media screen and (max-width: $xlarge-screen) {

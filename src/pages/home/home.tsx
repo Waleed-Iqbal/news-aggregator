@@ -15,6 +15,8 @@ import Loader from "../../components/loader/loader";
 export default function HomePage() {
   const currentDate: string = getDateNDaysAgo(0);
   const userContext = useContext(UserSettingsContext);
+  const pageSize: number =
+    (userContext && userContext.userSettings.pageSize) || 20;
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchText, setSearchText] = useState<string>("");
@@ -23,6 +25,9 @@ export default function HomePage() {
   );
   const [dateFilterTo, setDateFilterTo] = useState<string>(currentDate);
   const [selectedNewsCategory, setSelectedNewsCategory] = useState<string>("");
+  const [articleAuthors, setArticleAuthors] = useState<string[]>([]);
+  const [selectedArticleAuthor, setSelectedArticleAuthor] =
+    useState<string>("");
 
   // use these after testing
   const [newsAPIArticles, setNewAPIArticles] = useState<INewsArticle[]>([]);
@@ -30,6 +35,9 @@ export default function HomePage() {
 
   const getNewsArticles = async () => {
     setIsLoading(true);
+    setTotalArticles(0);
+    setArticleAuthors([]);
+    setSelectedArticleAuthor("");
     // TODO: Remove
     console.log(userContext);
 
@@ -41,7 +49,7 @@ export default function HomePage() {
       searchText.length > 0 ? `&q=${searchText}` : "";
 
     const response = await fetch(
-      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity&q=${searchText}${categories}${keywordFromUser}&from=${dateFilterFrom}&to${dateFilterTo}`,
+      `https://newsapi.org/v2/top-headlines?language=en&sortBy=popularity${categories}${keywordFromUser}&from=${dateFilterFrom}&to${dateFilterTo}&pageSize=${pageSize}`,
       {
         method: "GET",
         headers: {
@@ -52,7 +60,15 @@ export default function HomePage() {
 
     const newsAPIResponse: INewsAPIResponse = await response.json();
     setNewAPIArticles(newsAPIResponse.articles);
-    setTotalArticles(newsAPIResponse.totalResults);
+    setTotalArticles(newsAPIResponse.articles.length);
+
+    // get unique authors
+    setArticleAuthors([
+      ...new Set(
+        newsAPIResponse.articles.map((item: INewsArticle) => item.author)
+      ),
+    ]);
+
     setIsLoading(false);
   };
 
@@ -67,6 +83,26 @@ export default function HomePage() {
   ) => {
     e.stopPropagation();
     setSelectedNewsCategory(selectedNewsCategory === category ? "" : category);
+  };
+
+  const updateSelectedAuthor = (
+    e: MouseEvent<HTMLInputElement>,
+    author: string
+  ) => {
+    e.stopPropagation();
+    setSelectedArticleAuthor(selectedArticleAuthor === author ? "" : author);
+
+    const filteredArticles: INewsArticle[] = newsAPIArticles.filter(
+      (article: INewsArticle) => article.author === author
+    );
+
+    // set total articles based on selected author filter
+    // if no author is selected, show all articles and update total count
+    setTotalArticles(
+      selectedArticleAuthor === author
+        ? newsAPIArticles.length
+        : filteredArticles.length
+    );
   };
 
   return (
@@ -94,6 +130,7 @@ export default function HomePage() {
               height={20}
               alt="Search"
               className="search-icon"
+              onClick={getNewsArticles}
               src={ICON_MAGNIFYING_GLASS}
             />
           </div>
@@ -126,33 +163,72 @@ export default function HomePage() {
           </p>
           {!isLoading && totalArticles > 0 && (
             <>
-              {newsAPIArticles.map((article: INewsArticle, index: number) => (
-                <NewsArticle
-                  key={`${index}-${article.title}`}
-                  article={article}
-                />
-              ))}
+              {selectedArticleAuthor.length > 0 &&
+                newsAPIArticles
+                  .filter(
+                    (article: INewsArticle) =>
+                      article.author === selectedArticleAuthor
+                  )
+                  .map((article: INewsArticle, index: number) => (
+                    <NewsArticle
+                      key={`${index}-${article.title}`}
+                      article={article}
+                    />
+                  ))}
+              {selectedArticleAuthor.length === 0 &&
+                newsAPIArticles.map((article: INewsArticle, index: number) => (
+                  <NewsArticle
+                    key={`${index}-${article.title}`}
+                    article={article}
+                  />
+                ))}
             </>
           )}
           {!isLoading && totalArticles === 0 && <h2>No results found</h2>}
           {isLoading && <Loader />}
         </section>
 
-        <section className="categories-container">
-          <h2 className="category-heading">Select a category</h2>
-          <div className="categories-list">
-            {availableCategories.newsAPI.map((category: string) => (
-              <label key={category} className="label">
-                <input
-                  type="checkbox"
-                  value={category}
-                  className="checkbox"
-                  checked={selectedNewsCategory === category}
-                  onClick={(e) => updateSelectedCategories(e, category)}
-                />
-                {category}
-              </label>
-            ))}
+        <section className="categories-authors-container">
+          <div className="categories-container">
+            <h2 className="category-heading">Select category</h2>
+            <div className="categories-list">
+              {availableCategories.newsAPI.map((category: string) => (
+                <label key={category} className="label">
+                  <input
+                    type="checkbox"
+                    value={category}
+                    className="checkbox"
+                    checked={selectedNewsCategory === category}
+                    onClick={(e) => updateSelectedCategories(e, category)}
+                  />
+                  {category}
+                </label>
+              ))}
+            </div>
+          </div>
+          <br />
+          <div className="authors-container">
+            <h2 className="authors-heading">Select source</h2>
+            <div className="authors-list">
+              {!isLoading &&
+                articleAuthors.length > 0 &&
+                articleAuthors.map((author: string) => (
+                  <label key={author} className="label">
+                    <input
+                      type="checkbox"
+                      value={author}
+                      className="checkbox"
+                      checked={selectedArticleAuthor === author}
+                      onClick={(e) => updateSelectedAuthor(e, author)}
+                    />
+                    {author}
+                  </label>
+                ))}
+              {!isLoading && articleAuthors.length === 0 && (
+                <h3>No sources available</h3>
+              )}
+              {isLoading && <Loader />}
+            </div>
           </div>
         </section>
       </div>

@@ -70,6 +70,10 @@
 
 .news-articles-container {
   grid-area: news-container;
+
+  .text-content {
+    margin-left: 0;
+  }
 }
 
 .articles-count {

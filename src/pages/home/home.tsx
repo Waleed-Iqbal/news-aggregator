@@ -26,7 +26,7 @@ export default function HomePage() {
   });
   const [searchText, setSearchText] = useState<string>("");
   const [dateFilterFrom, setDateFilterFrom] = useState<string>(
-    getDateNDaysAgo(5)
+    getDateNDaysAgo(5),
   );
   const [dateFilterTo, setDateFilterTo] = useState<string>(currentDate);
   const [selectedNewsCategory, setSelectedNewsCategory] = useState<string>("");
@@ -59,7 +59,7 @@ export default function HomePage() {
         headers: {
           "X-Api-Key": process.env.REACT_APP_NEWS_API_KEY?.toString() || "",
         },
-      }
+      },
     )
       .then((response) => response.json())
       .then((newsAPIResponse: INewsAPIResponse) => {
@@ -69,7 +69,7 @@ export default function HomePage() {
         // get unique sources
         setArticleSources([
           ...new Set(
-            newsAPIResponse.articles.map((item: INewsArticle) => item.author)
+            newsAPIResponse.articles.map((item: INewsArticle) => item.author),
           ),
         ]);
       })
@@ -88,7 +88,7 @@ export default function HomePage() {
 
   const updateSelectedCategories = (
     e: MouseEvent<HTMLInputElement>,
-    category: string
+    category: string,
   ) => {
     e.stopPropagation();
     setSelectedNewsCategory(selectedNewsCategory === category ? "" : category);
@@ -96,13 +96,13 @@ export default function HomePage() {
 
   const updateSelectedSource = (
     e: MouseEvent<HTMLInputElement>,
-    source: string
+    source: string,
   ) => {
     e.stopPropagation();
     setSelectedArticleSource(selectedArticleSource === source ? "" : source);
 
     const filteredArticles: INewsArticle[] = newsAPIArticles.filter(
-      (article: INewsArticle) => article.author === source
+      (article: INewsArticle) => article.author === source,
     );
 
     // set total articles based on selected source filter
@@ -110,7 +110,7 @@ export default function HomePage() {
     setTotalArticles(
       selectedArticleSource === source
         ? newsAPIArticles.length
-        : filteredArticles.length
+        : filteredArticles.length,
     );
   };
 
@@ -176,7 +176,7 @@ export default function HomePage() {
                 newsAPIArticles
                   .filter(
                     (article: INewsArticle) =>
-                      article.author === selectedArticleSource
+                      article.author === selectedArticleSource,
                   )
                   .map((article: INewsArticle, index: number) => (
                     <NewsArticle

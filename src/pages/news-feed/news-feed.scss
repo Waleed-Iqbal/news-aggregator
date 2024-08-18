@@ -4,6 +4,9 @@
   .news-article-container {
     padding: 10px;
     max-width: 100%;
+    .text-content {
+      margin-left: 24px;
+    }
   }
 
   .article-image {
@@ -26,6 +29,7 @@
 
     .text-content {
       margin: 0;
+
       h2 {
         padding-right: 0;
       }

@@ -11,14 +11,14 @@ export default function SettingsPage() {
   const userContext = useContext(UserSettingsContext);
 
   const [selectedSources, setSelectedSources] = useState<string[]>(
-    defaultUserSettings.sources
+    defaultUserSettings.sources,
   );
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
-    defaultUserSettings.categories
+    defaultUserSettings.categories,
   );
 
   const [numberOfArticles, setNumberOfArticles] = useState<number>(
-    userContext.userSettings.numberOfArticles
+    userContext.userSettings.numberOfArticles,
   );
 
   useEffect(() => {
@@ -32,13 +32,13 @@ export default function SettingsPage() {
 
   const updateSelectedSources = (
     e: MouseEvent<HTMLInputElement>,
-    source: string
+    source: string,
   ) => {
     e.stopPropagation();
 
     if (selectedSources.includes(source)) {
       setSelectedSources(
-        selectedSources.filter((selectedSource) => selectedSource !== source)
+        selectedSources.filter((selectedSource) => selectedSource !== source),
       );
     } else {
       setSelectedSources([...selectedSources, source]);
@@ -47,15 +47,15 @@ export default function SettingsPage() {
 
   const updateSelectedCategories = (
     e: MouseEvent<HTMLInputElement>,
-    category: string
+    category: string,
   ) => {
     e.stopPropagation();
 
     if (selectedCategories.includes(category)) {
       setSelectedCategories(
         selectedCategories.filter(
-          (selectedCategory) => selectedCategory !== category
-        )
+          (selectedCategory) => selectedCategory !== category,
+        ),
       );
     } else {
       setSelectedCategories([...selectedCategories, category]);

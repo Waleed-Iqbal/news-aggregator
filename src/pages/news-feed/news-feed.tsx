@@ -39,7 +39,7 @@ export default function NewsFeedPage() {
         headers: {
           "X-Api-Key": process.env.REACT_APP_NEWS_API_KEY?.toString() || "",
         },
-      }
+      },
     )
       .then((response) => response.json())
       .then((newsAPIResponse: INewsAPIResponse) => {

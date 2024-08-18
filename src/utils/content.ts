@@ -1,4 +1,4 @@
-import { INewsAPIResponse, IPageInfo } from "./interfaces";
+import { IPageInfo, IStringArray, INewsAPIResponse } from "./interfaces";
 
 export enum AppNavigationLinks {
   default = "/",
@@ -33,7 +33,7 @@ export const PageInfo: IPageInfo = {
   },
 };
 
-export const availableCategories = {
+export const availableCategories: IStringArray = {
   newsAPI: [
     "business",
     "entertainment",

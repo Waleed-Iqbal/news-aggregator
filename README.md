@@ -1,39 +1,12 @@
 ### Notes
 
+- clone this repo
+- make sure to have node 18 installed in your machine
+- install all package by executing "npm install"
 - Unknown url will redirect to the home page
 
-### ToDo
+## Challenge
 
-- [x] Setup boilerplate [https://streamline-news.netlify.app/home](https://streamline-news.netlify.app/home)
-- [x] Deploy on Netlify
-- [x] Add routing
-- [x] Explore the APIs
-  - [ ] NewsAPI
-    - [ ] Get by word
-    - [ ] Get by date
-    - [ ]
-- [x] Add env file for API keys
-- [ ] should use 3 API's from the given ones.
-- [ ] There will be 2 routes and a settings page (optional route).
-  - [ ] One page will display all articles and that page will have different filters.
-  - [ ] The other page will be the personalized feed which will display the articles based on the selected filters from the settings page or in simple words we can say that it will only show the articles based on your preference.
-- [x] share context across multiple components (user preferences)
-- [ ] Filter (available results)
-  - [ ] By date
-  - [ ] By source
-  - [ ] By category
-- [ ] Sort
-  - [ ] By date (ascending / descending)
-  - [ ] By source name (ascending / descending)
-- [ ] Preferences
-  - [ ] Source
-  - [ ] Last x y
-    - [ ] x is number
-    - [ ] y can be "months" or "days" or "years"
-- [ ] Design research (optional)
-- [ ] Add documentation in README
-- [ ] Remove all unused imports
-- [ ] Containerization (restriction on my machine)
-- [ ] Setup docker container (restriction on my machine)
-- [ ] Add webpack ?
-- [ ] Add unit tests ?
+- APIs are a hassle
+- APIs fail with message like "You have made too many requests recently. Developer accounts are limited to 100 requests over a 24 hour period (50 requests available every 12 hours). Please upgrade to a paid plan if you need more requests."
+- Cannot install docker as I have restrictions on my machine

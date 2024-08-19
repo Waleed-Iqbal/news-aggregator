@@ -30,3 +30,4 @@
 - Cannot install docker as I have restrictions on my machine
 - The app is deployed on Netlify[https://streamline-news.netlify.app/home](https://streamline-news.netlify.app/home)
   - Seems like the free version of the API is not supported outside of local/dev environment.
+- Was unable to use multiple APIs

@@ -17,6 +17,10 @@
 - In case of API failure, an error message is shown on the UI
 - Loading states are added
 - The app is mobile friendly
+  - Nav
+  - News articles
+  - News filters
+  - News search
 
 ## Challenges / Restrictions
 
@@ -24,3 +28,5 @@
 - APIs fail with message like "You have made too many requests recently. Developer accounts are limited to 100 requests over a 24 hour period (50 requests available every 12 hours). Please upgrade to a paid plan if you need more requests."
   - Unable to record a demo due to this
 - Cannot install docker as I have restrictions on my machine
+- The app is deployed on Netlify[https://streamline-news.netlify.app/home](https://streamline-news.netlify.app/home)
+  - Seems like the free version of the API is not supported outside of local/dev environment.

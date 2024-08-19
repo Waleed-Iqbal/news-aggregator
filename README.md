@@ -3,7 +3,7 @@
 - Clone this repo
 - Make sure to have node 18 installed in your machine
 - Install all package by executing "npm install"
-- Add a ".env" file in the root level and add your NewsAPI key like REACT_APP_NEWS_API_KEY=<your_key_here>
+- Add a ".env" file in the root level and add NewsAPI key like `REACT_APP_NEWS_API_KEY=<your_key_here>`
 - Execute "npm run dev" and the app server should start on locally (usually on http://localhost:3000)
 
 ## Notes / Features

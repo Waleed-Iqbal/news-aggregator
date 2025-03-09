@@ -4,15 +4,18 @@ import {
   UserSettingsContext,
 } from "../../utils/userSettings";
 import { availableCategories, availableSources } from "../../utils/content";
+import { IUserSettingsContext } from "../../utils/interfaces";
 
 import "./settings.scss";
 
 export default function SettingsPage() {
-  const userContext = useContext(UserSettingsContext);
+  const userContext: IUserSettingsContext =
+    useContext<IUserSettingsContext>(UserSettingsContext);
 
   const [selectedSources, setSelectedSources] = useState<string[]>(
     defaultUserSettings.sources,
   );
+
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     defaultUserSettings.categories,
   );
